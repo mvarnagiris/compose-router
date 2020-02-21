@@ -3,6 +3,7 @@ package com.example.nestedcontainers
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.Composable
+import androidx.compose.Providers
 import androidx.ui.core.setContent
 import androidx.ui.foundation.HorizontalScroller
 import androidx.ui.material.MaterialTheme
@@ -24,7 +25,7 @@ class MainActivity : AppCompatActivity() {
                 HorizontalScroller {
                     timeCapsule.Provider(savedInstanceState) {
                         backPressHandler.Provider {
-                            routing.Provider(intent.deepLinkRoute()) {
+                            Providers(routing.provides(intent.deepLinkRoute())) {
                                 SomeChild.Root()
                             }
                         }

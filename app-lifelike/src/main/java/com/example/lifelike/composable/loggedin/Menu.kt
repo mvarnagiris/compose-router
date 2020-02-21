@@ -8,7 +8,6 @@ import androidx.ui.layout.LayoutWidth
 import androidx.ui.layout.Row
 import androidx.ui.material.Button
 import androidx.ui.material.MaterialTheme
-import androidx.ui.material.TextButtonStyle
 import androidx.ui.material.surface.Surface
 import androidx.ui.unit.dp
 import com.example.lifelike.composable.loggedin.Menu.MenuItem.Gallery
@@ -55,8 +54,8 @@ interface Menu {
             ) {
                 Button(
                     modifier = LayoutWidth.Fill,
-                    onClick = { onClick.invoke(item) },
-                    style = TextButtonStyle()
+                    onClick = { onClick.invoke(item) }//,
+//                    style = TextButtonStyle()
                 ) {
                     Text(
                         text = when (item) {

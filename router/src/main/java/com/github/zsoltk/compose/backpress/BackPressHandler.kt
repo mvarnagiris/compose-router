@@ -1,23 +1,25 @@
 package com.github.zsoltk.compose.backpress
 
-import androidx.compose.Ambient
 import androidx.compose.Composable
+import androidx.compose.ProvidableAmbient
+import androidx.compose.Providers
+import androidx.compose.ambientOf
 
-internal val backPressHandler: Ambient<BackPressHandler> =
-    Ambient.of { throw IllegalStateException("backPressHandler is not initialized") }
+internal val backPressHandler: ProvidableAmbient<BackPressHandler> =
+        ambientOf { throw IllegalStateException("backPressHandler is not initialized") }
 
 
 class BackPressHandler(
-    val id: String = "Root"
+        val id: String = "Root"
 ) {
     var children = mutableListOf<() -> Boolean>()
 
     fun handle(): Boolean =
-        children.reversed().any { it() }
+            children.reversed().any { it() }
 
     @Composable
     fun Provider(children: @Composable() () -> Unit) {
-        backPressHandler.Provider(value = this) {
+        Providers(backPressHandler.provides(this)) {
             children()
         }
     }

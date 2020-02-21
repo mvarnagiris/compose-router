@@ -2,6 +2,7 @@ package com.example.lifelike
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.compose.Providers
 import androidx.ui.core.setContent
 import androidx.ui.material.MaterialTheme
 import com.example.lifelike.composable.Root
@@ -20,7 +21,7 @@ class MainActivity : AppCompatActivity() {
             MaterialTheme {
                 backPressHandler.Provider {
                     timeCapsule.Provider(savedInstanceState) {
-                        routing.Provider(intent.deepLinkRoute()) {
+                        Providers(routing.provides(intent.deepLinkRoute())) {
                             Root.Content(LoggedOut)
                         }
                     }

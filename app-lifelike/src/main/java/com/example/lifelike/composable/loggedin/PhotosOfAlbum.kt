@@ -5,13 +5,7 @@ import androidx.ui.core.Text
 import androidx.ui.foundation.Clickable
 import androidx.ui.foundation.DrawImage
 import androidx.ui.foundation.VerticalScroller
-import androidx.ui.layout.Column
-import androidx.ui.layout.Container
-import androidx.ui.layout.LayoutAspectRatio
-import androidx.ui.layout.LayoutPadding
-import androidx.ui.layout.Padding
-import androidx.ui.layout.Table
-import androidx.ui.layout.TableColumnWidth
+import androidx.ui.layout.*
 import androidx.ui.material.MaterialTheme
 import androidx.ui.res.imageResource
 import androidx.ui.tooling.preview.Preview
@@ -57,9 +51,9 @@ interface PhotosOfAlbum {
             val typography = MaterialTheme.typography()
 
             Text(
-                text = album.name,
-                style = typography.h4,
-                modifier = LayoutPadding(left = 8.dp, top = 16.dp, right = 8.dp, bottom = 4.dp)
+                    text = album.name,
+                    style = typography.h4,
+                    modifier = LayoutPadding(left = 8.dp, top = 16.dp, right = 8.dp, bottom = 4.dp)
             )
         }
 
@@ -68,9 +62,9 @@ interface PhotosOfAlbum {
             val typography = MaterialTheme.typography()
 
             Text(
-                text = "${album.photos.size} photos",
-                style = typography.body1,
-                modifier = LayoutPadding(left = 8.dp, right = 8.dp, bottom = 16.dp)
+                    text = "${album.photos.size} photos",
+                    style = typography.body1,
+                    modifier = LayoutPadding(left = 8.dp, right = 8.dp, bottom = 16.dp)
             )
         }
 
@@ -83,21 +77,17 @@ interface PhotosOfAlbum {
             val image = imageResource(R.drawable.placeholder)
 
 
-            Padding(4.dp) {
-                Table(columns = cols, columnWidth = { TableColumnWidth.Fraction(1.0f / cols) }) {
-                    for (i in 0..rows) {
-                        tableRow {
-                            val startIndex = i * cols
-                            val maxIndex = (i + 1) * cols - 1
-                            val endIndex = if (maxIndex > lastIndex) lastIndex else maxIndex
+            Table(columns = cols, columnWidth = { TableColumnWidth.Fraction(1.0f / cols) }) {
+                for (i in 0..rows) {
+                    tableRow {
+                        val startIndex = i * cols
+                        val maxIndex = (i + 1) * cols - 1
+                        val endIndex = if (maxIndex > lastIndex) lastIndex else maxIndex
 
-                            for (j in startIndex..endIndex) {
-                                Padding(4.dp) {
-                                    Clickable(onClick = { onPhotoSelected(album.photos[j]) }) {
-                                        Container(expanded = true, modifier = LayoutAspectRatio(1f)) {
-                                            DrawImage(image)
-                                        }
-                                    }
+                        for (j in startIndex..endIndex) {
+                            Clickable(onClick = { onPhotoSelected(album.photos[j]) }) {
+                                Container(expanded = true, modifier = LayoutAspectRatio(1f)) {
+                                    DrawImage(image)
                                 }
                             }
                         }

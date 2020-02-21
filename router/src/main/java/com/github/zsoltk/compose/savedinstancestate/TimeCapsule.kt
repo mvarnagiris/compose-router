@@ -2,6 +2,7 @@ package com.github.zsoltk.compose.savedinstancestate
 
 import android.os.Bundle
 import androidx.compose.Composable
+import androidx.compose.Providers
 
 class TimeCapsule {
     private var savedInstanceState: Bundle = Bundle()
@@ -10,7 +11,7 @@ class TimeCapsule {
     fun Provider(savedInstanceState: Bundle?, children: @Composable() () -> Unit) {
         this.savedInstanceState = savedInstanceState?.getBundle(KEY) ?: Bundle()
 
-        com.github.zsoltk.compose.savedinstancestate.savedInstanceState.Provider(value = this.savedInstanceState) {
+        Providers(com.github.zsoltk.compose.savedinstancestate.savedInstanceState.provides(this.savedInstanceState)) {
             children()
         }
     }
